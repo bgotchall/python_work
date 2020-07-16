@@ -13,10 +13,7 @@ hockey_games = [
      'final_period': '3'},
     {'home': {'name': 'Arizona Coyotes', 'goals': 3},
     'away': {'name': 'Vancouver Canucks', 'goals': 2},
-    'final_period': 'SO'},
-    {'home': {'name': 'Arizona Coyotes', 'goals': 30},
-    'away': {'name': 'Vancouver Canucks', 'goals': 20},
-    'final_period': '3'}
+    'final_period': 'SO'}
 ]
 ##################################################################################################
 # OT is overtime, SO is shoot-out which happens after overtime expires
@@ -139,11 +136,11 @@ def downformat(thisList):
 
 my_list=ordered_standings()
 
-print ("the final result list of dictionaries is:")
-print (my_list)
+# print ("the final result list of dictionaries is:")
+# print (my_list)
 
 my_list=downformat(my_list)
 
-print ("the final result list is")
+#print ("the final result list is")
 print (my_list)
 
