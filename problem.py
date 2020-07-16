@@ -13,7 +13,10 @@ hockey_games = [
      'final_period': '3'},
     {'home': {'name': 'Arizona Coyotes', 'goals': 3},
     'away': {'name': 'Vancouver Canucks', 'goals': 2},
-    'final_period': 'SO'}
+    'final_period': 'SO'},
+    {'home': {'name': 'Arizona Coyotes', 'goals': 30},
+    'away': {'name': 'Vancouver Canucks', 'goals': 20},
+    'final_period': '3'}
 ]
 ##################################################################################################
 # OT is overtime, SO is shoot-out which happens after overtime expires
@@ -54,8 +57,8 @@ def calculate_statistics(game_dict):
 def sort_list(list_to_sort):
     #reorder in descending order of score
     # print("######starting the sort function!  now sorting this list: ", list_to_sort)
-    new_list=[]
-    sub_list=[]
+    new_list=[]                     #the new sorted copy of list_to_sort
+    sub_list=[]                     #the portion of list_to_sort that excludes the largest value
     highest_score=0
     highest_team={}
 
@@ -91,40 +94,27 @@ def sort_list(list_to_sort):
 def ordered_standings():
     
     # traverse the list of games and sum up the points:
-    team_list=[]
+    team_list=[]            #keeps track of teams so we don't add a team twice
     result_list=[]          # list of dictionaries
     for this_game in hockey_games:
         this_name=this_game['home']['name']
         if this_name not in team_list:
             result_list.append({'name':this_name,'score':0})
-
-    print ("intialized result list is")
-    print (result_list)
-
+            team_list.append(this_name)
 
     for this_game in hockey_games:
         result=calculate_statistics(this_game)
-        print("this result is", result)
+        #print("this result is", result)
 
-        # result2=[]
-        # # recast the result as a proper dictionary:
-        # for team in result:
-        #     result2.append({'name':team, 'score': result[team] })                   # redo this with name:value
-        # print ("new result2 is",result2)
-        result2=result
-            
-       
         #traverse the list of team names and match up to this game's results:
-        winner_name=result2['winner']['name']
-        print("this winner is ", winner_name, "their score is ",result2['winner']['score'])
-        loser_name=result2['loser']['name']
-        print("this loser is ", loser_name, "their score is ",result2['loser']['score'])
+        winner_name=result['winner']['name']
+        loser_name=result['loser']['name']
 
         for team in result_list:
             if team['name']==winner_name:
-                team['score']+=result2['winner']['score']
+                team['score']+=result['winner']['score']
             elif team['name']==loser_name:
-                team['score']+=result2['loser']['score']
+                team['score']+=result['loser']['score']
             
     #now reorder the list:
     final_list=sort_list(result_list)
@@ -149,7 +139,7 @@ def downformat(thisList):
 
 my_list=ordered_standings()
 
-print ("the final result list is")
+print ("the final result list of dictionaries is:")
 print (my_list)
 
 my_list=downformat(my_list)
