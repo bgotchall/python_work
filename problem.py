@@ -33,13 +33,21 @@ def calculate_statistics(game_dict):
         losing_team_name = game_dict['home']['name']
 
     else:
-        return {home_team['name']: 1, away_team['name']: 1}  # tie (pre 2000-2001)
+        return  {'winner':{'name':winning_team_name, 'score': 1, "ROW": 0}, 'loser':{'name': losing_team_name, 'score': 1, 'ROW':0}}  # tie (pre 2000-2001)
+                  
 
         # Handle overtime vs regulation win
-    if final_period in ['OT', 'SO']:
-        return {winning_team_name: 2, losing_team_name: 1}  # Overtime win/loss
+    
+    thisItem={}
+    if final_period =='OT':
+        thisItem= {'winner':{'name':winning_team_name, 'score': 2, "ROW": 1}, 'loser':{'name': losing_team_name, 'score': 1, 'ROW':0}}  # Overtime win/loss
+    elif final_period =='SO':
+        thisItem= {'winner':{'name':winning_team_name, 'score': 2, "ROW": 0}, 'loser':{'name': losing_team_name, 'score': 1, 'ROW':0}}  # shootout win/loss
     else:
-        return {winning_team_name: 2, losing_team_name: 0}  # Regulation win/loss
+        thisItem= {'winner':{'name':winning_team_name, 'score': 2, "ROW": 1}, 'loser':{'name': losing_team_name, 'score': 0, 'ROW':0}}  # regulation win/loss
+        
+
+    return thisItem    
 
 #############################################################################################################
 
@@ -96,30 +104,29 @@ def ordered_standings():
 
     for this_game in hockey_games:
         result=calculate_statistics(this_game)
-        # print("this result is")
-        # print(result)
+        print("this result is", result)
 
-        result2=[]
-        # recast the result as a proper dictionary:
-        for team in result:
-            result2.append({'name':team, 'score': result[team] })                   # redo this with name:value
-        print ("new result2 is",result2)
+        # result2=[]
+        # # recast the result as a proper dictionary:
+        # for team in result:
+        #     result2.append({'name':team, 'score': result[team] })                   # redo this with name:value
+        # print ("new result2 is",result2)
+        result2=result
             
        
         #traverse the list of team names and match up to this game's results:
-        winner_name=result2[0]['name']
-        print("this winner is ", winner_name, "their score is ",result2[0]['score'])
-        loser_name=result2[1]['name']
-        print("this loser is ", loser_name, "their score is ",result2[1]['score'])
+        winner_name=result2['winner']['name']
+        print("this winner is ", winner_name, "their score is ",result2['winner']['score'])
+        loser_name=result2['loser']['name']
+        print("this loser is ", loser_name, "their score is ",result2['loser']['score'])
 
         for team in result_list:
             if team['name']==winner_name:
-                team['score']+=result2[0]['score']
+                team['score']+=result2['winner']['score']
             elif team['name']==loser_name:
-                team['score']+=result2[1]['score']
+                team['score']+=result2['loser']['score']
             
     #now reorder the list:
-    final_list=[]
     final_list=sort_list(result_list)
 
 
