@@ -126,6 +126,18 @@ def ordered_standings():
     return final_list
 
 ##################################################################################
+def downformat(thisList):
+# change to the desired format
+    newList=[]
+
+    for thisTeam in thisList:
+        newTeam={}
+        newTeam={thisTeam['name'],thisTeam['score']}
+        newList.append(newTeam)
+
+
+    return newList
+##################################################################################
 
 
 my_list=ordered_standings()
@@ -133,5 +145,8 @@ my_list=ordered_standings()
 print ("the final result list is")
 print (my_list)
 
+my_list=downformat(my_list)
 
+print ("the final result list is")
+print (my_list)
 
