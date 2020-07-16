@@ -75,7 +75,10 @@ def sort_list(list_to_sort):
 
        
         new_list.append(highest_team)               # the first entry is the highest
-        new_list.append(sort_list(sub_list))        # now add the rest of the list, sorted with recursive calls
+        temp_list=[]
+        temp_list=sort_list(sub_list)                 # now add the rest of the list, sorted with recursive calls
+        for this_item in temp_list:
+            new_list.append(this_item)      
         
         return new_list
 
