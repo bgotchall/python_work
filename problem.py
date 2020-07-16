@@ -129,7 +129,7 @@ def downformat(thisList):
 
     for thisTeam in thisList:
         newTeam={}
-        newTeam={thisTeam['name'],thisTeam['score']}
+        newTeam={thisTeam['name']:thisTeam['score']}
         newList.append(newTeam)
 
 
