@@ -15,6 +15,7 @@ hockey_games = [
     'away': {'name': 'Vancouver Canucks', 'goals': 2},
     'final_period': 'SO'}
 ]
+##################################################################################################
 # OT is overtime, SO is shoot-out which happens after overtime expires
 def calculate_statistics(game_dict):
 
@@ -44,32 +45,25 @@ def calculate_statistics(game_dict):
 
 def sort_list(list_to_sort):
     #reorder in descending order of score
-    print("######starting the sort function!  now sorting this list: ", list_to_sort)
+    # print("######starting the sort function!  now sorting this list: ", list_to_sort)
     new_list=[]
     sub_list=[]
     highest_score=0
     highest_team={}
 
     if len(list_to_sort)==1:
-        print("list has one item, exiting")
         return list_to_sort         #exit condition
     else:
         for this_team in list_to_sort:
-            print("looking at this team", this_team)
             if this_team['score']>highest_score:
-                print("new high found!",this_team['score'])
                 highest_score=this_team['score']
                 highest_team=this_team
-
-        print("highest found was", highest_team)
 
         #remove the highest, the manual way:
 
         for this_team in list_to_sort:
-            print("looking at this team", this_team)
             if this_team['name']==highest_team['name']:
-                print("I found the highest again",this_team['name'])
-               # do nothing
+               pass    # do nothing
             else:
                 sub_list.append(this_team)          #restore all the non-highest teams for further sorting.
 
